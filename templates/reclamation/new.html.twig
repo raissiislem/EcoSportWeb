@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Réclamation{% endblock %}
+
+{% block body %}
+    {# templates/reclamation/new.html.twig #}
+
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.event) }}  {# This will render the dropdown for Event #}
+        {{ form_row(form.Ajouter)}}
+    {{ form_end(form) }}
+
+{% endblock %}

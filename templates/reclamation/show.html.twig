@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails Réclamation{% endblock %}
+
+{% block body %}
+    <h1>Détails de la Réclamation</h1>
+
+    <p><strong>Titre:</strong> {{ reclamation.title }}</p>
+    <p><strong>Description:</strong> {{ reclamation.description }}</p>
+    <p><strong>Status:</strong> {{ reclamation.status }}</p>
+    <p><strong>Réponse:</strong> {{ reclamation.answer }}</p>
+
+    <a href="{{ path('reclamations') }}">⬅️ Retour</a>
+{% endblock %}

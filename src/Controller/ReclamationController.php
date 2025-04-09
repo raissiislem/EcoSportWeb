@@ -48,14 +48,48 @@ class ReclamationController extends AbstractController
             $em->flush();
 
 
-            // Redirect or return a response
             return $this->redirectToRoute('reclamations');
         }
+
+
 
         return $this->render('reclamation/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/reclamations/{id}/suivre', name: 'reclamation_suivre')]
+    public function suivre(Reclamation $reclamation, Request $request, ManagerRegistry $mr): Response
+    {
+        if ($request->isMethod('POST')) {
+            $answer = $request->request->get('answer');
+            $reclamation->setAnswer($answer);
+            $reclamation->setStatus('RESOLU');
+
+            $em = $mr->getManager();
+            $em->persist($reclamation);
+            $em->flush();
+
+            return $this->redirectToRoute('reclamations');
+        }
+
+        return $this->render('reclamation/suivre.html.twig', [
+            'reclamation' => $reclamation,
+        ]);
+    }
+
+    #[Route('/reclamations/{id}/en-cours', name: 'reclamation_encours')]
+    public function markEnCours(Reclamation $reclamation, ManagerRegistry $mr): Response
+    {
+        $reclamation->setStatus('EN_COURS');
+
+        $em = $mr->getManager();
+        $em->persist($reclamation);
+        $em->flush();
+
+        return $this->redirectToRoute('reclamations');
+    }
+
 
 
 

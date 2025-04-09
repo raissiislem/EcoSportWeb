@@ -3,12 +3,18 @@
 {% block title %}Modifier Réclamation{% endblock %}
 
 {% block body %}
-    <h1>Modifier la Réclamation</h1>
+    <div class="reclamation-form-container">
+        <h2>Modifier la Réclamation</h2>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-primary">Sauvegarder</button>
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_widget(form) }}
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">Sauvegarder</button>
+            </div>
+        {{ form_end(form) }}
 
-    <a href="{{ path('reclamations') }}">⬅️ Retour</a>
+        <a href="{{ path('reclamations') }}" class="back-link">⬅️ Retour</a>
+    </div>
 {% endblock %}

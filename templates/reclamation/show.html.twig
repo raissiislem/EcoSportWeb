@@ -3,12 +3,14 @@
 {% block title %}Détails Réclamation{% endblock %}
 
 {% block body %}
-    <h1>Détails de la Réclamation</h1>
+    <div class="reclamation-detail-container">
+        <h2>Détails de la Réclamation</h2>
 
-    <p><strong>Titre:</strong> {{ reclamation.title }}</p>
-    <p><strong>Description:</strong> {{ reclamation.description }}</p>
-    <p><strong>Status:</strong> {{ reclamation.status }}</p>
-    <p><strong>Réponse:</strong> {{ reclamation.answer }}</p>
+        <p><strong>Titre:</strong> {{ reclamation.title }}</p>
+        <p><strong>Description:</strong> {{ reclamation.description }}</p>
+        <p><strong>Status:</strong> {{ reclamation.status }}</p>
+        <p><strong>Réponse:</strong> {{ reclamation.answer }}</p>
 
-    <a href="{{ path('reclamations') }}">⬅️ Retour</a>
+        <a href="{{ path('reclamations') }}" class="back-link">⬅️ Retour</a>
+    </div>
 {% endblock %}

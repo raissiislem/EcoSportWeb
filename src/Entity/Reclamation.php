@@ -23,16 +23,38 @@ class Reclamation
     private ?User $user = null;
 
     #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank(message: "Le titre ne doit pas être vide.")]
+    #[Assert\Length(
+        min: 3,
+        max: 255,
+        minMessage: "Le titre doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le titre ne doit pas dépasser {{ limit }} caractères."
+    )]
     private string $title;
 
     #[ORM\Column(type: "text")]
+    #[Assert\NotBlank(message: "La description ne doit pas être vide.")]
+    #[Assert\Length(
+        min: 10,
+        minMessage: "La description doit contenir au moins {{ limit }} caractères."
+    )]
     private string $description;
 
     #[ORM\Column(type: "string", length: 20)]
+    #[Assert\Choice(
+        choices: ['EN_ATTENTE', 'EN_COURS', 'RESOLU'],
+        message: "Le statut doit être EN_ATTENTE, EN_COURS ou RESOLU."
+    )]
     private string $status;
 
     #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotNull(message: "La réponse ne doit pas être nulle.")]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: "La réponse ne doit pas dépasser {{ limit }} caractères."
+    )]
     private string $answer;
+
 
 
 

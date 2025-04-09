@@ -3,45 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}App{% endblock %}</title>
-    <style>
-        body {
-            display: flex;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .sidebar {
-            width: 200px;
-            background-color: #2c3e50;
-            height: 100vh;
-            padding: 20px;
-            color: white;
-        }
-        .sidebar a {
-            display: block;
-            padding: 10px;
-            color: white;
-            text-decoration: none;
-            margin-bottom: 5px;
-        }
-        .sidebar a:hover {
-            background-color: #34495e;
-        }
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-        }
-    </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Lato font -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- External CSS File -->
+    <link rel="stylesheet" href="{{ asset('styles/styles.css') }}">
 </head>
 <body>
     <div class="sidebar">
-        <h2>Menu</h2>
+        <div class="logo-container">
+            <img src="{{ asset('images/ECO SPORT LOGO - WHITE.png') }}" alt="EcoSport Logo">
+        </div>
         <a href="{{ path('accueil') }}">Accueil</a>
-        <a href="{{ path('evenements') }}">Evenements</a>
-        <a href="{{ path('equipements') }}">Equipements</a>
-        <a href="{{ path('reclamations') }}">Reclamations</a>
+        <a href="{{ path('evenements') }}">Événements</a>
+        <a href="{{ path('equipements') }}">Équipements</a>
+        <a href="{{ path('reclamations') }}">Réclamations</a>
     </div>
+
     <div class="content">
         {% block body %}{% endblock %}
     </div>

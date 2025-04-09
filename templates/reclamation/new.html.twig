@@ -5,11 +5,22 @@
 {% block body %}
     {# templates/reclamation/new.html.twig #}
 
-    {{ form_start(form) }}
-        {{ form_row(form.title) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.event) }}  {# This will render the dropdown for Event #}
-        {{ form_row(form.Ajouter)}}
-    {{ form_end(form) }}
+    <div class="reclamation-form-container">
+        <h2>Nouvelle Réclamation</h2>
 
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_row(form.title) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.description) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.event) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.Ajouter) }}
+            </div>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '/reclamation_client/base.html.twig' %}
 
 {% block title %}Suivre Réclamation{% endblock %}
 
@@ -23,6 +23,5 @@
             <button type="submit" class="btn btn-success mt-3">Soumettre la réponse (Résolu)</button>
         </form>
 
-        <a href="{{ path('reclamations') }}" class="back-link">⬅️ Retour</a>
     </div>
 {% endblock %}

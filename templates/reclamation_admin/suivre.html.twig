@@ -1,0 +1,27 @@
+{% extends '/reclamation_admin/base.html.twig' %}
+
+{% block title %}Suivre Réclamation{% endblock %}
+
+{% block body %}
+    <div class="reclamation-detail-container">
+        <h2>Suivre la Réclamation</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ reclamation.title }}</h5>
+                <p class="card-text"><strong>Description:</strong> {{ reclamation.description }}</p>
+                <p class="card-text"><strong>Status:</strong> {{ reclamation.status }}</p>
+            </div>
+        </div>
+
+        <form method="post">
+            <div class="form-group">
+                <label for="answer" class="form-label">Réponse de l'admin</label>
+                <textarea name="answer" id="answer" class="form-control" rows="4" required>{{ reclamation.answer }}</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-3">Soumettre la réponse (Résolu)</button>
+        </form>
+
+    </div>
+{% endblock %}

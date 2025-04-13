@@ -16,16 +16,25 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class ReclamationController extends AbstractController
 {
-    #[Route('/reclamations', name: 'reclamations')]
-    public function index(ReclamationRepository $reclamationRepository): Response
+    #[Route('/admin/reclamations', name: 'reclamations_admin')]
+    public function index_admin(ReclamationRepository $reclamationRepository): Response
     {
         $reclamations = $reclamationRepository->findAll();
-        return $this->render('reclamation/index.html.twig', [
+        return $this->render('reclamation_admin/index.html.twig', [
             'reclamations' => $reclamations,
         ]);
     }
 
-    #[Route('/reclamations/new', name: 'reclamation_new')]
+    #[Route('/client/reclamations', name: 'reclamations_client')]
+    public function index_client(ReclamationRepository $reclamationRepository): Response
+    {
+        $reclamations = $reclamationRepository->findByUserId(1);
+        return $this->render('reclamation_client/index.html.twig', [
+            'reclamations' => $reclamations,
+        ]);
+    }
+
+    #[Route('/client/reclamations/new', name: 'reclamation_new')]
     public function new(ManagerRegistry $mr, Request $req): Response
     {
         $reclamation = new Reclamation();
@@ -48,17 +57,17 @@ class ReclamationController extends AbstractController
             $em->flush();
 
 
-            return $this->redirectToRoute('reclamations');
+            return $this->redirectToRoute('reclamations_client');
         }
 
 
 
-        return $this->render('reclamation/new.html.twig', [
+        return $this->render('reclamation_client/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/reclamations/{id}/suivre', name: 'reclamation_suivre')]
+    #[Route('/admin/reclamations/{id}/suivre', name: 'reclamation_suivre')]
     public function suivre(Reclamation $reclamation, Request $request, ManagerRegistry $mr): Response
     {
         if ($request->isMethod('POST')) {
@@ -73,12 +82,12 @@ class ReclamationController extends AbstractController
             return $this->redirectToRoute('reclamations');
         }
 
-        return $this->render('reclamation/suivre.html.twig', [
+        return $this->render('reclamation_admin/suivre.html.twig', [
             'reclamation' => $reclamation,
         ]);
     }
 
-    #[Route('/reclamations/{id}/en-cours', name: 'reclamation_encours')]
+    #[Route('/admin/reclamations/{id}/en-cours', name: 'reclamation_encours')]
     public function markEnCours(Reclamation $reclamation, ManagerRegistry $mr): Response
     {
         $reclamation->setStatus('EN_COURS');
@@ -87,7 +96,7 @@ class ReclamationController extends AbstractController
         $em->persist($reclamation);
         $em->flush();
 
-        return $this->redirectToRoute('reclamations');
+        return $this->redirectToRoute('reclamations_admin');
     }
 
 
@@ -96,7 +105,7 @@ class ReclamationController extends AbstractController
 
 
 
-    #[Route('/reclamations/{id}/edit', name: 'reclamation_edit')]
+    #[Route('/client/reclamations/{id}/edit', name: 'reclamation_edit')]
     public function edit(Request $request, Reclamation $reclamation, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(ReclamationType::class, $reclamation);
@@ -107,13 +116,13 @@ class ReclamationController extends AbstractController
             return $this->redirectToRoute('reclamations');
         }
 
-        return $this->render('reclamation/edit.html.twig', [
+        return $this->render('reclamation_client/edit.html.twig', [
             'form' => $form->createView(),
             'reclamation' => $reclamation
         ]);
     }
 
-    #[Route('/reclamations/{id}/delete', name: 'reclamation_delete')]
+    #[Route('/client/reclamations/{id}/delete', name: 'reclamation_delete')]
     public function delete(Reclamation $reclamation, EntityManagerInterface $em): Response
     {
         $em->remove($reclamation);
@@ -121,10 +130,18 @@ class ReclamationController extends AbstractController
         return $this->redirectToRoute('reclamations');
     }
 
-    #[Route('/reclamations/{id}', name: 'reclamation_show')]
-    public function show(Reclamation $reclamation): Response
+    #[Route('/client/reclamations/{id}', name: 'reclamation_show_client')]
+    public function showClient(Reclamation $reclamation): Response
     {
-        return $this->render('reclamation/show.html.twig', [
+        return $this->render('reclamation_client/show.html.twig', [
+            'reclamation' => $reclamation
+        ]);
+    }
+
+    #[Route('/admin/reclamations/{id}', name: 'reclamation_show_admin')]
+    public function showAdmin(Reclamation $reclamation): Response
+    {
+        return $this->render('reclamation_admin/show.html.twig', [
             'reclamation' => $reclamation
         ]);
     }

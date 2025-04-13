@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}App{% endblock %}</title>
+
+    <!-- Lato font -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- External CSS File -->
+    <link rel="stylesheet" href="{{ asset('styles/styles.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="{{ asset('images/ECO SPORT LOGO - WHITE.png') }}" alt="EcoSport Logo">
+        </div>
+        <a href="{{ path('accueil_client') }}">Accueil</a>
+        <a href="{{ path('evenements_client') }}">Événements</a>
+        <a href="{{ path('equipements_client') }}">Équipements</a>
+        <a href="{{ path('reclamations_client') }}">Réclamations</a>
+    </div>
+
+    <div class="content">
+        {% block body %}{% endblock %}
+    </div>
+</body>
+</html>

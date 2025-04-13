@@ -8,27 +8,57 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    #[Route('/', name: 'accueil')]
-    public function accueil(): Response
+    #[Route('/client', name: 'accueil_client')]
+    public function accueilClient(): Response
     {
-        return $this->render('main/accueil.html.twig');
+        return $this->render('/client/accueil.html.twig');
     }
 
-    #[Route('/evenements', name: 'evenements')]
-    public function evenements(): Response
+    #[Route('/admin', name: 'accueil_admin')]
+    public function accueilAdmin(): Response
     {
-        return $this->render('main/evenements.html.twig');
+        return $this->render('/admin/accueil.html.twig');
     }
 
-    #[Route('/equipements', name: 'equipements')]
-    public function equipements(): Response
+    #[Route('/client/evenements', name: 'evenements_client')]
+    public function evenementsClient(): Response
     {
-        return $this->render('main/equipements.html.twig');
+        return $this->render('/client/evenements.html.twig');
     }
 
-    #[Route('/reclamations', name: 'reclamations')]
-    public function reclamations(): Response
+    #[Route('/client/equipements', name: 'equipements_client')]
+    public function equipementsClient(): Response
     {
-        return $this->render('reclamation/index.html.twig');
+        return $this->render('/client/equipements.html.twig');
+    }
+
+    #[Route('/client/reclamations', name: 'reclamations_client')]
+    public function reclamationsClient(): Response
+    {
+        return $this->render('reclamation_client/index.html.twig');
+    }
+
+    #[Route('/admin/evenements', name: 'evenements_admin')]
+    public function evenementsAdmin(): Response
+    {
+        return $this->render('/admin/evenements.html.twig');
+    }
+
+    #[Route('/admin/equipements', name: 'equipements_admin')]
+    public function equipementsAdmin(): Response
+    {
+        return $this->render('/admin/equipements.html.twig');
+    }
+
+    #[Route('/admin/reclamations', name: 'reclamations_admin')]
+    public function reclamationsAdmin(): Response
+    {
+        return $this->render('reclamation_admin/index.html.twig');
+    }
+
+    #[Route('/admin/utilisateurs', name: 'utilisateurs_admin')]
+    public function utilisateursAdmin(): Response
+    {
+        return $this->render('/admin/utilisateurs.html.twig');
     }
 }

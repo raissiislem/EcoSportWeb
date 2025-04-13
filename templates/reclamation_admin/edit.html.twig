@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '/reclamation_admin/base.html.twig' %}
 
 {% block title %}Modifier Réclamation{% endblock %}
 
@@ -15,6 +15,5 @@
             </div>
         {{ form_end(form) }}
 
-        <a href="{{ path('reclamations') }}" class="back-link">⬅️ Retour</a>
     </div>
 {% endblock %}

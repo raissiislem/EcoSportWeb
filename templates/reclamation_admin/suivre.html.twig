@@ -17,7 +17,7 @@
         <form method="post">
             <div class="form-group">
                 <label for="answer" class="form-label">Réponse de l'admin</label>
-                <textarea name="answer" id="answer" class="form-control" rows="4" required>{{ reclamation.answer }}</textarea>
+                <textarea name="answer" id="answer" class="form-control" rows="4" required>{{ reclamation.response ? reclamation.response.content : '' }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-success mt-3">Soumettre la réponse (Résolu)</button>

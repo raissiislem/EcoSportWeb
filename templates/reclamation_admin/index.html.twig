@@ -4,9 +4,6 @@
 
 {% block body %}
 <h1>Liste des Réclamations</h1>
-
-<a href="{{ path('reclamation_new') }}" class="btn btn-primary mb-3">Ajouter une réclamation</a>
-
 <table class="table table-striped">
     <thead>
         <tr>
@@ -36,10 +33,9 @@
                 </td>
                 <td>
                     <a href="{{ path('reclamation_show_client', { id: reclamation.id }) }}" class="btn btn-info btn-sm">Voir</a>
-                    <a href="{{ path('reclamation_edit', { id: reclamation.id }) }}" class="btn btn-warning btn-sm">Modifier</a>
                     <a href="{{ path('reclamation_suivre', { id: reclamation.id }) }}" class="btn btn-secondary btn-sm">Suivre</a>
                     <a href="{{ path('reclamation_encours', { id: reclamation.id }) }}" class="btn btn-dark btn-sm">En Cours</a>
-                    <form method="post" action="{{ path('reclamation_delete', { id: reclamation.id }) }}" style="display:inline-block;" onsubmit="return confirm('Confirmer la suppression ?');">
+                    <form method="post" action="{{ path('reclamation_delete_admin', { id: reclamation.id }) }}" style="display:inline-block;" onsubmit="return confirm('Confirmer la suppression ?');">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reclamation.id) }}">
                         <button class="btn btn-danger btn-sm">Supprimer</button>

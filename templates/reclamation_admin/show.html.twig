@@ -16,7 +16,14 @@
         <p><strong>Status:</strong> {{ reclamation.status }}</p>
         </div>
         <div class="form-group">
-        <p><strong>Réponse:</strong> {{ reclamation.answer }}</p>
+            <p><strong>Réponse:</strong>
+                {% if reclamation.response %}
+                    {{ reclamation.response.content }}
+                {% else %}
+                    <em>Pas encore de réponse</em>
+                {% endif %}
+            </p>
         </div>
+
     </div>
 {% endblock %}

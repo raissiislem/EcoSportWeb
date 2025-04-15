@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Response as ReponseEntity;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,15 +72,21 @@ class ReclamationController extends AbstractController
     public function suivre(Reclamation $reclamation, Request $request, ManagerRegistry $mr): Response
     {
         if ($request->isMethod('POST')) {
-            $answer = $request->request->get('answer');
-            $reclamation->setAnswer($answer);
+            $answerContent = $request->request->get('answer');
+
+            $reponse = new ReponseEntity();
+            $reponse->setContent($answerContent);
+            $reponse->setCreatedAt(new \DateTime());
+            $reponse->setReclamation($reclamation);
+
             $reclamation->setStatus('RESOLU');
 
             $em = $mr->getManager();
+            $em->persist($reponse);
             $em->persist($reclamation);
             $em->flush();
 
-            return $this->redirectToRoute('reclamations');
+            return $this->redirectToRoute('reclamations_admin');
         }
 
         return $this->render('reclamation_admin/suivre.html.twig', [
@@ -113,7 +120,7 @@ class ReclamationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            return $this->redirectToRoute('reclamations');
+            return $this->redirectToRoute('reclamations_client');
         }
 
         return $this->render('reclamation_client/edit.html.twig', [
@@ -122,12 +129,19 @@ class ReclamationController extends AbstractController
         ]);
     }
 
-    #[Route('/client/reclamations/{id}/delete', name: 'reclamation_delete')]
-    public function delete(Reclamation $reclamation, EntityManagerInterface $em): Response
+    #[Route('/client/reclamations/{id}/delete', name: 'reclamation_delete_client')]
+    public function deleteClient(Reclamation $reclamation, EntityManagerInterface $em): Response
     {
         $em->remove($reclamation);
         $em->flush();
-        return $this->redirectToRoute('reclamations');
+        return $this->redirectToRoute('reclamations_client');
+    }
+    #[Route('/admin/reclamations/{id}/delete', name: 'reclamation_delete_admin')]
+    public function deleteAdmin(Reclamation $reclamation, EntityManagerInterface $em): Response
+    {
+        $em->remove($reclamation);
+        $em->flush();
+        return $this->redirectToRoute('reclamations_admin');
     }
 
     #[Route('/client/reclamations/{id}', name: 'reclamation_show_client')]

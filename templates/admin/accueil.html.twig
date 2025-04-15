@@ -1,7 +1,38 @@
 {% extends '/reclamation_admin/base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Tableau de Bord | EcoSport Admin{% endblock %}
 
 {% block body %}
-    <h1>Bienvenue sur la page d'accueil</h1>
+    <div class="container text-center mt-5">
+        <img src="{{ asset('images/ECO SPORT.png') }}" alt="EcoSport Logo" class="img-fluid" style="max-width: 160px;"/>
+
+        <h1 class="display-5 mt-4 fw-bold text-primary">Bienvenue sur l’espace Admin EcoSport 🔧</h1>
+
+        <p class="lead mt-3 text-muted">
+            Gérez les événements, équipements, réclamations et veillez à faire rayonner l’écologie à travers le sport.
+        </p>
+
+        <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+            <a href="{{ path('evenements_admin') }}" class="btn btn-primary btn-lg shadow-sm">
+                Gérer les événements
+            </a>
+            <a href="{{ path('equipements_admin') }}" class="btn btn-primary btn-lg shadow-sm">
+                Gérer les équipements
+            </a>
+            <a href="{{ path('reclamations_admin') }}" class="btn btn-primary btn-lg shadow-sm">
+                Gérer les réclamations
+            </a>
+        </div>
+
+        <div class="mt-5">
+            <h5 class="text-secondary">Fonctionnalités disponibles :</h5>
+            <ul class="list-unstyled mt-3">
+                <li>📌 Création, modification et suppression d’événements</li>
+                <li>📦 Suivi des équipements écologiques publiés</li>
+                <li>🛠 Traitement des réclamations utilisateurs</li>
+                <li>📰 Rédaction et publication d’articles éducatifs</li>
+                <li>📊 Supervision de l’écosystème EcoSport</li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}

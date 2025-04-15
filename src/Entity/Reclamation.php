@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Response;
 use App\Repository\ReclamationRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
 class Reclamation
@@ -41,19 +43,10 @@ class Reclamation
     private string $description;
 
     #[ORM\Column(type: "string", length: 20)]
-    #[Assert\Choice(
-        choices: ['EN_ATTENTE', 'EN_COURS', 'RESOLU'],
-        message: "Le statut doit être EN_ATTENTE, EN_COURS ou RESOLU."
-    )]
     private string $status;
 
-    #[ORM\Column(type: "string", length: 255)]
-    #[Assert\NotNull(message: "La réponse ne doit pas être nulle.")]
-    #[Assert\Length(
-        max: 255,
-        maxMessage: "La réponse ne doit pas dépasser {{ limit }} caractères."
-    )]
-    private string $answer;
+    #[ORM\OneToOne(mappedBy: "reclamation", cascade: ["persist", "remove"])]
+    private ?Response $response = null;
 
 
 
@@ -130,15 +123,20 @@ class Reclamation
         return $this;
     }
 
-    public function getAnswer(): string
+    public function getResponse(): ?Response
     {
-        return $this->answer;
+        return $this->response;
     }
 
-    public function setAnswer(string $answer): self
+    public function setResponse(?Response $response): self
     {
-        $this->answer = $answer;
+        if ($response->getReclamation() !== $this) {
+            $response->setReclamation($this);
+        }
 
+        $this->response = $response;
         return $this;
     }
+
+
 }

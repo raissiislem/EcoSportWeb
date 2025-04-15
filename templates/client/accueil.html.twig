@@ -1,7 +1,33 @@
 {% extends '/reclamation_client/base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Bienvenue sur EcoSport{% endblock %}
 
 {% block body %}
-    <h1>Bienvenue sur la page d'accueil</h1>
+    <div class="container text-center mt-5">
+        <img src="{{ asset('images/ECO SPORT.png') }}" alt="EcoSport Logo" class="img-fluid" style="max-width: 180px;"/>
+
+        <h1 class="display-4 mt-4 fw-bold text-success">Bienvenue sur EcoSport 🌱</h1>
+
+        <p class="lead mt-3 text-muted">
+            L'application qui réunit sport et écologie. <br>
+            Découvrez des événements écoresponsables, du matériel durable, et bien plus encore.
+        </p>
+
+        <a href="{{ path('evenements_client') }}" class="btn btn-outline-success btn-lg mt-4 shadow-sm">
+            Explorer les événements
+        </a>
+        <a href="{{ path('equipements_client') }}" class="btn btn-outline-success btn-lg mt-4 shadow-sm">
+            Explorer les équipements écologiques
+        </a>
+
+        <div class="mt-5">
+            <h5 class="text-secondary">Ce que vous trouverez sur EcoSport :</h5>
+            <ul class="list-unstyled mt-3">
+                <li>🌍 Événements sportifs écologiques</li>
+                <li>🏋️‍♂️ Équipements durables de nos partenaires</li>
+                <li>📝 Articles sur le sport et l’environnement</li>
+                <li>📣 Système de réclamations pour une meilleure expérience</li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}

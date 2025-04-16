@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Response as ReponseEntity;
+use App\Entity\Response as ResponseEntity;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Reclamation;
 use App\Form\ReclamationType;
+use App\Form\ResponseType;
 use App\Repository\ReclamationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -71,18 +72,17 @@ class ReclamationController extends AbstractController
     #[Route('/admin/reclamations/{id}/suivre', name: 'reclamation_suivre')]
     public function suivre(Reclamation $reclamation, Request $request, ManagerRegistry $mr): Response
     {
-        if ($request->isMethod('POST')) {
-            $answerContent = $request->request->get('answer');
+        $response = $reclamation->getResponse() ?? new \App\Entity\Response();
+        $form = $this->createForm(ResponseType::class, $response);
+        $form->handleRequest($request);
 
-            $reponse = new ReponseEntity();
-            $reponse->setContent($answerContent);
-            $reponse->setCreatedAt(new \DateTime());
-            $reponse->setReclamation($reclamation);
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $response->setCreatedAt(new \DateTime());
+            $response->setReclamation($reclamation);
             $reclamation->setStatus('RESOLU');
 
             $em = $mr->getManager();
-            $em->persist($reponse);
+            $em->persist($response);
             $em->persist($reclamation);
             $em->flush();
 
@@ -91,6 +91,7 @@ class ReclamationController extends AbstractController
 
         return $this->render('reclamation_admin/suivre.html.twig', [
             'reclamation' => $reclamation,
+            'form' => $form->createView(),
         ]);
     }
 

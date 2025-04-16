@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ResponseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ResponseRepository::class)]
 class Response
@@ -14,7 +15,13 @@ class Response
     private ?int $id = null;
 
     #[ORM\Column(type: "text")]
-    private string $content;
+    #[Assert\NotBlank(message: "Le contenu de la réponse ne doit pas être vide.")]
+    #[Assert\Length(
+        min: 5,
+        max: 1000,
+        minMessage: "La réponse doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "La réponse ne doit pas dépasser {{ limit }} caractères."
+    )]    private string $content;
 
     #[ORM\Column(type: "datetime")]
     private \DateTimeInterface $createdAt;
